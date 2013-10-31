@@ -89,9 +89,6 @@ end : Applicative with type 'a t = 'a A.t)
 module type Monadic = sig
   type 'a t
 
-  val pstring : string t
-  val plist : 'a t -> 'a list t
-
   include Applicative with type 'a t := 'a t
 end
 
@@ -104,9 +101,4 @@ end) -> (struct
 
   module A = (Applicative(M) : Applicative with type 'a t := 'a M.t)
   include A
-
-  let len = M.fmap Int64.to_int int64le
-
-  let pstring = M.bind len bytes
-  let plist t = M.bind len (list t)
 end : Monadic with type 'a t = 'a M.t)
