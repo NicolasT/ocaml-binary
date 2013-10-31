@@ -2,14 +2,16 @@ let main () =
   let str () =
     let module M = Binary_monad.Utils (Binary_string.Reader) in
     let open M.Infix in
-    let module MR = Binary_reader.Applicative (Binary_string.Reader) in
+    let module MR = Binary_reader.Monadic (Binary_string.Reader) in
     let open MR in
 
-    let s = Printf.sprintf "%cabcd" (Char.chr 4) in
+    let s = Printf.sprintf "%cabcdef" (Char.chr 4) in
 
-    let reader = uint8 >>= list char in
-    let (r, _) = Binary_string.Reader.run reader s in
-    List.iter (Printf.printf "%c\n") r
+    let a = Array.make 2 (Char.chr 0) in
+    let reader = pair (uint8 >>= list char) (array a char) in
+    let ((r, _), _) = Binary_string.Reader.run reader s in
+    List.iter (Printf.printf "%c\n") r;
+    Array.iter (Printf.printf "%c\n") a
   in
   str ();
 

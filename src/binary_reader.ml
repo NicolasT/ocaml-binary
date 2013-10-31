@@ -77,11 +77,12 @@ end) -> (struct
   include F
 
   module AU = Binary_applicative.Utils(A)
+  open AU
   open AU.Infix
 
   let pair a b = (fun a b -> (a, b)) <$> a <*> b
   let triple a b c = (fun a b c -> (a, b, c)) <$> a <*> b <*> c
-  let list t l = AU.replicateA l t
+  let list t l = replicateA l t
 end : Applicative with type 'a t = 'a A.t)
 
 
@@ -90,6 +91,8 @@ module type Monadic = sig
   type 'a t
 
   include Applicative with type 'a t := 'a t
+
+  val array : 'a array -> 'a t -> unit t
 end
 
 module Monadic = functor(M : sig
@@ -99,6 +102,18 @@ module Monadic = functor(M : sig
 end) -> (struct
   type 'a t = 'a M.t
 
+  module MU = Binary_monad.Utils(M)
+  include MU
+  include MU.Infix
+
   module A = (Applicative(M) : Applicative with type 'a t := 'a M.t)
   include A
+
+  let array a t =
+    let l = Array.length a in
+    let rec loop = function
+      | n when n = l -> M.pure ()
+      | n -> M.fmap (Array.set a n) t >>= fun () -> loop (n + 1)
+    in
+    loop 0
 end : Monadic with type 'a t = 'a M.t)
