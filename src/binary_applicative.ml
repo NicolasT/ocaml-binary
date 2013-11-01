@@ -33,12 +33,12 @@ end = struct
     let (<*>) = A.apply
   end
 
+  open Infix
+
   let replicateA c a =
     let rec loop = function
       | 0 -> A.pure []
       | n ->
-          let (<*>) = A.apply
-          and (<$>) = A.fmap in
           (fun v a -> v :: a) <$> a <*> loop (n - 1)
     in
     loop c
