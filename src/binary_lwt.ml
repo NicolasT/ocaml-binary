@@ -17,7 +17,7 @@ end = struct
       (fun () -> (s', 0), s'')
       (Lwt_io.read_into_exactly ic s' 0 l)
 
-  let fmap f m = fun t s ->
+  let map f m = fun t s ->
     Lwt.map 
       (fun (x, s') -> (f x, s'))
       (m t s)

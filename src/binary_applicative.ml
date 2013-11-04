@@ -17,7 +17,7 @@ module FunctorOfApplicative = functor (A : sig
 end) -> (struct
   type 'a t = 'a A.t
 
-  let fmap f t = A.apply (A.pure f) t
+  let map f t = A.apply (A.pure f) t
 end : Functor with type 'a t = 'a A.t)
 
 module Utils (A : Applicative) : sig
@@ -29,7 +29,7 @@ module Utils (A : Applicative) : sig
   val replicateA : int -> 'a A.t -> 'a list A.t
 end = struct
   module Infix = struct
-    let (<$>) = A.fmap
+    let (<$>) = A.map
     let (<*>) = A.apply
   end
 

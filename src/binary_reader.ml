@@ -30,19 +30,19 @@ module Functorial = functor(F : sig
 end) -> (struct
   type 'a t = 'a F.t
 
-  let char = F.fmap (fun (s, o) -> String.unsafe_get s o) (F.read 1)
+  let char = F.map (fun (s, o) -> String.unsafe_get s o) (F.read 1)
   let bytes l =
     let unsafe_sub s o =
       let dest = String.create l in
       let () = String.unsafe_blit s o dest 0 l in
       dest
     in
-    F.fmap (fun (s, o) -> unsafe_sub s o) (F.read l)
+    F.map (fun (s, o) -> unsafe_sub s o) (F.read l)
 
   module LE = EndianString.LittleEndian_unsafe
   module BE = EndianString.BigEndian_unsafe
 
-  let wrap cnt f = F.fmap (fun (s, o) -> f s o) (F.read cnt)
+  let wrap cnt f = F.map (fun (s, o) -> f s o) (F.read cnt)
 
   let int8 = wrap 1 LE.get_int8
   let uint8 = wrap 1 LE.get_uint8
@@ -119,7 +119,7 @@ end) -> (struct
     let l = Array.length a in
     let rec loop = function
       | n when n = l -> M.pure ()
-      | n -> M.fmap (Array.set a n) t >>= fun () -> loop (n + 1)
+      | n -> M.map (Array.set a n) t >>= fun () -> loop (n + 1)
     in
     loop 0
 end : Monadic with type 'a t = 'a M.t)

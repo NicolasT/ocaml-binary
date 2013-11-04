@@ -1,7 +1,7 @@
 module type Functor = sig
   type 'a t
 
-  val fmap : ('a -> 'b) -> 'a t -> 'b t
+  val map : ('a -> 'b) -> 'a t -> 'b t
 end
 
 module Utils (F : Functor) : sig
@@ -10,6 +10,6 @@ module Utils (F : Functor) : sig
   end
 end = struct
   module Infix = struct
-    let (<$>) = F.fmap
+    let (<$>) = F.map
   end
 end

@@ -29,7 +29,7 @@ end) -> (struct
   include A
 
   module F = FunctorOfApplicative(A)
-  let fmap = F.fmap
+  let map = F.map
 end : Applicative with type 'a t = 'a M.t)
 
 module Utils (M : Monad) : sig

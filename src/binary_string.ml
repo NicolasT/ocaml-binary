@@ -13,7 +13,7 @@ end = struct
   (* Could use ApplicativeOfMonad and FunctorOfApplicative,
    * but we can provide more efficient implementations manually *)
 
-  let fmap f m = fun s o ->
+  let map f m = fun s o ->
     let (v, o') = m s o in
     (f v, o')
 
