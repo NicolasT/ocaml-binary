@@ -30,11 +30,17 @@ module Functorial = functor(F : sig
 end) -> (struct
   type 'a t = 'a F.t
 
-  let char = F.fmap (fun (s, o) -> String.get s o) (F.read 1)
-  let bytes l = F.fmap (fun (s, o) -> String.sub s o l) (F.read l)
+  let char = F.fmap (fun (s, o) -> String.unsafe_get s o) (F.read 1)
+  let bytes l =
+    let unsafe_sub s o =
+      let dest = String.create l in
+      let () = String.unsafe_blit s o dest 0 l in
+      dest
+    in
+    F.fmap (fun (s, o) -> unsafe_sub s o) (F.read l)
 
-  module LE = EndianString.LittleEndian
-  module BE = EndianString.BigEndian
+  module LE = EndianString.LittleEndian_unsafe
+  module BE = EndianString.BigEndian_unsafe
 
   let wrap cnt f = F.fmap (fun (s, o) -> f s o) (F.read cnt)
 
