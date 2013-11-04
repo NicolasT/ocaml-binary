@@ -27,7 +27,12 @@ end = struct
     let (r, o') = k s o in
     (m r) s o'
 
-  let read l = fun s o -> (s, o), (o + l)
+  let read l = fun s o ->
+    if o + l > String.length s
+    then
+      raise (Invalid_argument "Binary_string.Reader.read: out of bounds")
+    else
+      (s, o), (o + l)
 
   let run ?(offset=0) t s = t s offset
 end
