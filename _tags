@@ -1,9 +1,0 @@
-true: warn_error
-true: package(ocplib-endian)
-true: package(lwt)
-true: package(lwt.unix)
-"src": include
-<src/*.ml>: inline(1000)
-
-"bench": include
-<bench/*>: thread, package(core_bench)

@@ -11,3 +11,17 @@
 _build/
 *.byte
 *.native
+
+AUTHORS.txt
+INSTALL.txt
+Makefile
+README.txt
+_tags
+configure
+myocamlbuild.ml
+setup.data
+setup.log
+setup.ml
+src/META
+src/binary.mllib
+src/binary_lwt.mllib

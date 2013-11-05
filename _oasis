@@ -1,0 +1,81 @@
+OASISFormat:  0.3
+Name:         binary
+Version:      0.0.0
+Synopsis:     Utilities for binary serialization & deserialization
+Authors:      Nicolas Trangez
+License:      MPL
+LicenseFile:  LICENSE
+Homepage:     http://github.com/NicolasT/ocaml-binary
+
+BuildTools:   ocamlbuild
+Plugins:      DevFiles (0.2), META (0.2), StdFiles (0.2)
+
+Flag lwt
+  Description: Build Lwt bindings
+  Default:     false
+
+Flag demo
+  Description: Build demo
+  Default:     false
+
+Flag benchmark
+  Description: Build benchmarks
+  Default:     false
+
+Library binary
+  Path:            src
+  FindlibName:     binary
+  BuildTools:      ocamlbuild
+  Modules:         Binary_reader,
+                   Binary_writer,
+                   Binary_buffer,
+                   Binary_string,
+                   Binary_monoid,
+                   Binary_functor,
+                   Binary_applicative,
+                   Binary_monad
+  BuildDepends:    ocplib-endian
+
+Library binary_lwt
+  Build$:        flag(lwt)
+  Install$:      flag(lwt)
+  Path:          src
+  Findlibname:   lwt
+  FindlibParent: binary
+  Modules:       Binary_lwt
+  BuildDepends:  binary,
+                 lwt
+
+Executable "binary_demo"
+  Build$:       flag(demo)
+  Install:      false
+  Path:         .
+  MainIs:       demo.ml
+  BuildDepends: binary,
+                lwt.unix
+
+Executable "binary_bench_string_sub"
+  Build$:         flag(benchmark)
+  Install:        false
+  Path:           bench
+  MainIs:         bench_string_sub.ml
+  CompiledObject: native
+  BuildDepends:   binary,
+                  threads,
+                  core_bench
+
+Executable "binary_bench_applicative_monad"
+  Build$:         flag(benchmark)
+  Install:        false
+  Path:           bench
+  MainIs:         bench_applicative_monad.ml
+  CompiledObject: native
+  BuildDepends:   binary,
+                  threads,
+                  core_bench
+
+SourceRepository master
+  Type:     git
+  Location: git://github.com/NicolasT/ocaml-binary.git
+  Browser:  http://github.com/NicolasT/ocaml-binary
+  Branch:   master
