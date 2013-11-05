@@ -7,6 +7,11 @@ let main () =
                    ]
     in
     let s = Binary_string.Writer.run t in
+
+    let b = Buffer.create 16 in
+    let () = Binary_buffer.Writer.run b t in
+    assert (Buffer.contents b = s);
+
     Printf.printf "%s\n" s
   in
   write ();
