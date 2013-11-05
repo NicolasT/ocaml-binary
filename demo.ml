@@ -1,4 +1,16 @@
 let main () =
+  let write () =
+    let open Binary_writer in
+    let t = concat [ bytes "Hello"
+                   ; char ' '
+                   ; bytes "world!"
+                   ]
+    in
+    let s = Binary_string.Writer.run t in
+    Printf.printf "%s\n" s
+  in
+  write ();
+
   let str () =
     let module M = Binary_monad.Utils (Binary_string.Reader) in
     let open M.Infix in

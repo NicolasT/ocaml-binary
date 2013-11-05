@@ -36,3 +36,29 @@ end = struct
 
   let run ?(offset=0) t s = t s offset
 end
+
+module Writer : sig
+  (* This is highly inefficient, since it concatenates strings internally.
+   * Consider using the `Buffer`-based version
+   *)
+  val run : Binary_writer.t -> string
+end = struct
+  (* The following uses a state monad over a string state.
+   * Consider the monadic type to be
+   *
+   * type 'a t = string -> ('a, string)
+   *)
+
+  let return v = fun s -> (v, s)
+  let bind k m = fun s ->
+    let (r, s') = k s in
+    m r s'
+
+  let write s = fun s' ->
+    ((), s' ^ s)
+
+  let run t =
+    let m = Binary_writer.run write bind return t in
+    let ((), s) = m "" in
+    s
+end

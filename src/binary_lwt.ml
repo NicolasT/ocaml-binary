@@ -40,3 +40,9 @@ end = struct
     let s = String.create default_size in
     Lwt.map (fun (a, _) -> a) (t (ic, max_size) s)
 end
+
+module Writer : sig
+  val run : Lwt_io.output_channel -> Binary_writer.t -> unit Lwt.t
+end = struct
+  let run oc = Binary_writer.run (Lwt_io.write oc) Lwt.bind Lwt.return
+end
