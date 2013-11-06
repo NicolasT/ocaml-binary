@@ -1,0 +1,11 @@
+# OASIS_START
+# DO NOT EDIT (digest: b4d01e6f0a22f516b7bf71af32d2321b)
+Binary_reader
+Binary_writer
+Binary_buffer
+Binary_string
+Binary_monoid
+Binary_functor
+Binary_applicative
+Binary_monad
+# OASIS_STOP

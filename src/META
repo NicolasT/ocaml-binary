@@ -1,0 +1,22 @@
+# OASIS_START
+# DO NOT EDIT (digest: a1defcbaba32ad949fe710ca34c31573)
+version = "0.0.1"
+description = "Utilities for binary serialization & deserialization"
+requires = "ocplib-endian"
+archive(byte) = "binary.cma"
+archive(byte, plugin) = "binary.cma"
+archive(native) = "binary.cmxa"
+archive(native, plugin) = "binary.cmxs"
+exists_if = "binary.cma"
+package "lwt" (
+ version = "0.0.1"
+ description = "Utilities for binary serialization & deserialization"
+ requires = "binary lwt"
+ archive(byte) = "binary_lwt.cma"
+ archive(byte, plugin) = "binary_lwt.cma"
+ archive(native) = "binary_lwt.cmxa"
+ archive(native, plugin) = "binary_lwt.cmxs"
+ exists_if = "binary_lwt.cma"
+)
+# OASIS_STOP
+

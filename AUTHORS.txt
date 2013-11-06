@@ -1,0 +1,5 @@
+(* OASIS_START *)
+(* DO NOT EDIT (digest: 8f53ac5986a48e83a70929647c362b97) *)
+Authors of binary
+Nicolas Trangez
+(* OASIS_STOP *)

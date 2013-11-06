@@ -1,0 +1,44 @@
+# OASIS_START
+# DO NOT EDIT (digest: 60a3a9e7dce73f9504863982479093c2)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library binary
+"src/binary.cmxs": use_binary
+# Library binary_lwt
+"src/binary_lwt.cmxs": use_binary_lwt
+<src/*.ml{,i}>: use_binary
+<src/*.ml{,i}>: pkg_lwt
+<src/*.ml{,i}>: pkg_ocplib-endian
+# Executable binary_demo
+"demo.byte": use_binary
+"demo.byte": pkg_lwt.unix
+"demo.byte": pkg_ocplib-endian
+<*.ml{,i}>: use_binary
+<*.ml{,i}>: pkg_lwt.unix
+<*.ml{,i}>: pkg_ocplib-endian
+# Executable binary_bench_string_sub
+"bench/bench_string_sub.native": use_binary
+"bench/bench_string_sub.native": pkg_threads
+"bench/bench_string_sub.native": pkg_core_bench
+"bench/bench_string_sub.native": pkg_ocplib-endian
+# Executable binary_bench_applicative_monad
+"bench/bench_applicative_monad.native": use_binary
+"bench/bench_applicative_monad.native": pkg_threads
+"bench/bench_applicative_monad.native": pkg_core_bench
+"bench/bench_applicative_monad.native": pkg_ocplib-endian
+<bench/*.ml{,i}>: use_binary
+<bench/*.ml{,i}>: pkg_threads
+<bench/*.ml{,i}>: pkg_core_bench
+<bench/*.ml{,i}>: pkg_ocplib-endian
+# OASIS_STOP
