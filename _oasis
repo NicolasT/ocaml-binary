@@ -1,6 +1,6 @@
 OASISFormat:  0.3
 Name:         binary
-Version:      0.0.0
+Version:      999
 Synopsis:     Utilities for binary serialization & deserialization
 Authors:      Nicolas Trangez
 License:      MPL
