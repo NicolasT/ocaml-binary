@@ -74,8 +74,8 @@ Executable "binary_bench_applicative_monad"
                   threads,
                   core_bench
 
-SourceRepository master
+SourceRepository head
   Type:     git
   Location: git://github.com/NicolasT/ocaml-binary.git
-  Browser:  http://github.com/NicolasT/ocaml-binary
   Branch:   master
+  Browser:  http://github.com/NicolasT/ocaml-binary/tree/master
