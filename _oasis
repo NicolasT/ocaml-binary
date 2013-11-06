@@ -1,6 +1,6 @@
 OASISFormat:  0.3
 Name:         binary
-Version:      999
+Version:      0.0.1
 Synopsis:     Utilities for binary serialization & deserialization
 Authors:      Nicolas Trangez
 License:      MPL
@@ -79,3 +79,9 @@ SourceRepository head
   Location: git://github.com/NicolasT/ocaml-binary.git
   Branch:   master
   Browser:  http://github.com/NicolasT/ocaml-binary/tree/master
+
+SourceRepository this
+  Type:     git
+  Location: git://github.com/NicolasT/ocaml-binary.git
+  Tag:      0.0.1
+  Browser:  http://github.com/NicolasT/ocaml-binary/tree/0.0.1
